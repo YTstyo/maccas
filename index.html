@@ -1,121 +1,117 @@
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Sleek McDonald's Survey Code</title>
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-                color: #dfdfdf;
-                font-family: 'Arial', sans-serif;
-                background-size: cover;
-                background-position: center;
-                height: 100vh;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-            main {
-                background: rgba(255, 255, 255, 0.678);
-                border-radius: 16px;
-                padding: 24px 32px;
-                text-align: center;
-                backdrop-filter: blur(10px);
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-                max-width: 90%;
-            }
-            p {
-                font-size: 32px;
-                color: #fff;
-                margin-bottom: 16px;
-            }
-            #code {
-                background: rgba(255, 255, 255, 0.8);
-                color: #000000;
-                padding: 20px 40px;
-                font-size: 48px;
-                border-radius: 12px;
-                font-weight: bold;
-                display: inline-block;
-                cursor: pointer;
-                box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-            #code:hover {
-                transform: scale(1.05);
-                box-shadow: 0 12px 35px rgba(255, 255, 255, 0.3);
-            }
-            #copy-btn {
-                margin-top: 20px;
-                background-color: #ffcc00;
-                color: #ff0000;
-                padding: 10px 20px;
-                font-size: 20px;
-                border-radius: 12px;
-                font-weight: bold;
-                cursor: pointer;
-                text-transform: uppercase;
-                display: inline-block;
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-                transition: background-color 0.3s ease;
-            }
-            #copy-btn:hover {
-                background-color: #ffe066;
-            }
-        </style>
-    </head>
-    <body>
-        <main>
-            <section class="inputs">
-                <input id="store-id" type="hidden" />
-                <input id="order-id" type="hidden" />
-                <input id="purchased" type="hidden" min="2016-02-01T00:00" autocomplete="off" />
-            </section>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleek McDonald's Survey Code</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        main {
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            width: 100%;
+        }
+        #code {
+            background: #ffffff;
+            color: #333333;
+            padding: 15px;
+            font-size: 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: inline-block;
+            cursor: pointer;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+        #code:hover {
+            background-color: #f0f0f0;
+        }
+        #copy-btn {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        #copy-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="inputs">
+            <input id="store-id" type="hidden" />
+            <input id="order-id" type="hidden" />
+            <input id="purchased" type="hidden" min="2016-02-01T00:00" autocomplete="off" />
+        </section>
 
-            <section class="code">
-                <code id="code">-</code>
-            </section>
-        </main>
+        <section class="code">
+            <code id="code">-</code>
+        </section>
 
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-        <script src="../get_code.js"></script>
-        <script>
-            $(async () => {
-                const stores = await getStores();
+        <button id="copy-btn">Copy Code</button>
+    </main>
 
-                const randomStoreIndex = Math.floor(Math.random() * stores.length);
-                $("#store-id").val(stores[randomStoreIndex][0]);
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(async () => {
+            const stores = await getStores();
 
-                const randomOrderId = Math.floor(Math.random() * 100000);
-                $("#order-id").val(randomOrderId);
+            const randomStoreIndex = Math.floor(Math.random() * stores.length);
+            $("#store-id").val(stores[randomStoreIndex][0]);
 
-                const minDate = new Date('2023-11-01T00:00:00');
-                const maxDate = new Date();
-                const randomDate = new Date(minDate.getTime() + Math.random() * (maxDate.getTime() - minDate.getTime()));
-                const formattedDate = randomDate.toISOString().slice(0, 16);
-                $("#purchased").val(formattedDate);
+            const randomOrderId = Math.floor(Math.random() * 100000);
+            $("#order-id").val(randomOrderId);
 
-                getCode();
+            const minDate = new Date('2023-11-01T00:00:00');
+            const maxDate = new Date();
+            const randomDate = new Date(minDate.getTime() + Math.random() * (maxDate.getTime() - minDate.getTime()));
+            const formattedDate = randomDate.toISOString().slice(0, 16);
+            $("#purchased").val(formattedDate);
 
-                $("#purchased").on("input change", getCode);
+            getCode();
 
-                function getCode() {
-                    const storeId = parseInt($("#store-id").val(), 10);
-                    const orderId = parseInt($("#order-id").val(), 10);
-                    const purchased = $("#purchased").val();
-                    let val = "-";
+            $("#purchased").on("input change", getCode);
 
-                    if (!isNaN(storeId) && !isNaN(orderId) && storeId >= 0 && orderId >= 0 && purchased) {
-                        val = generateCode(storeId, orderId, purchased);
-                    }
+            function getCode() {
+                const storeId = parseInt($("#store-id").val(), 10);
+                const orderId = parseInt($("#order-id").val(), 10);
+                const purchased = $("#purchased").val();
+                let val = "-";
 
-                    $("#code").text(val);
+                if (!isNaN(storeId) && !isNaN(orderId) && storeId >= 0 && orderId >= 0 && purchased) {
+                    val = generateCode(storeId, orderId, purchased);
                 }
-                const codeElement = document.getElementById('code');
-                const copyButton = document.getElementById('copy-btn');
-                codeElement.addEventListener('click', function() {
+
+                $("#code").text(val);
+            }
+
+            const codeElement = document.getElementById('code');
+            const copyButton = document.getElementById('copy-btn');
+
+            codeElement.addEventListener('click', function() {
                 const code = codeElement.innerText;
                 navigator.clipboard.writeText(code).then(() => {
                     alert('Code copied to clipboard!');
@@ -130,17 +126,22 @@
                 });
             });
 
-                async function getStores() {
-                    return new Promise(resolve => {
-                        fetch("https://raw.githubusercontent.com/sapphire-bt/mcdonalds-uk-survey-codes/main/stores.tsv")
-                            .then(response => response.text())
-                            .then(data => {
-                                resolve(data.split("\n").map(row => row.split("\t")));
-                            })
-                            .catch(console.log);
-                    });
-                }
-            });
-        </script>
-    </body>
+            async function getStores() {
+                return new Promise(resolve => {
+                    fetch("https://raw.githubusercontent.com/sapphire-bt/mcdonalds-uk-survey-codes/main/stores.tsv")
+                        .then(response => response.text())
+                        .then(data => {
+                            resolve(data.split("\n").map(row => row.split("\t")));
+                        })
+                        .catch(console.log);
+                });
+            }
+        });
+
+        function generateCode(storeId, orderId, purchased) {
+            // Assuming you have your own implementation of code generation.
+            return `${storeId}-${orderId}-${purchased}`;
+        }
+    </script>
+</body>
 </html>
